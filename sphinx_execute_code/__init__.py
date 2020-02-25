@@ -25,11 +25,12 @@ Usage:
 
    See Readme.rst for documentation details
 """
-import sys
 import os
 import re
-from docutils.parsers.rst import Directive, directives
+import sys
+
 from docutils import nodes
+from docutils.parsers.rst import Directive, directives
 
 try:
     from StringIO import StringIO
@@ -133,8 +134,10 @@ class ExecuteCode(Directive):
         if not 'hide_code' in self.options:
             if 'hide_import' in self.options:
                 m = re.compile(r"import\s+[\.\w]+\s*\n+", re.MULTILINE)
-                code = m.sub("", code)
-            input_code = nodes.literal_block(code, code)
+                displayed_code = m.sub("", code)
+            else:
+                displayed_code = code
+            input_code = nodes.literal_block(displayed_code, displayed_code)
 
             input_code['language'] = language
             input_code['linenos'] = 'linenos' in self.options
@@ -147,7 +150,6 @@ class ExecuteCode(Directive):
                 output.append(nodes.caption(
                     text='%s %s' % (code_caption, suffix)))
             output.append(input_code)
-
 
         # Show the code results
         if not 'hide_headers' in self.options:
