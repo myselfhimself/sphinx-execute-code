@@ -33,6 +33,8 @@ results_caption
     If specified, defines the results caption header
 hide_import
     If specified, hides the import command in code
+input
+    If specified, input will returns defined values
 
 execute_code
 ------------
