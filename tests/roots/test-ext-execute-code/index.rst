@@ -49,3 +49,16 @@ This is a test
 .. execute_code::
    :filename: tests/hidden_filename.py
    :hide_filename:
+
+.. execute_code::
+   :hide_headers:
+   :hide_import:
+
+   import os
+   print('execute_code_hide_import:' + 'sample_10')
+
+.. execute_code::
+   :hide_headers:
+   :results_caption: Example code
+
+   print('execute_code_results_caption:' + 'sample_11')
