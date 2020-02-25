@@ -112,7 +112,7 @@ Installation
 
 Installation from source::
 
-    $ git clone git@github.com:jpsenior/sphinx-execute-code.git
+    $ git clone git@github.com:jeromemartin/sphinx-execute-code.git
     $ python setup.py install
 
 Installation from pypi::
