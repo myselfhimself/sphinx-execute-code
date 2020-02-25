@@ -155,3 +155,21 @@ def test_sphinx_execute_code(app, status, warning):
     ''')
 
     assert results_header in content
+
+    results_header = dedent('''\
+    Results
+
+       execute_code_hide_results_caption:sample_14
+    ''')
+
+    # Ensure filename is hidden with :hide_filename:
+    assert results_header not in content
+
+    results_header = dedent('''\
+    Code
+
+       execute_code_hide_code_caption:sample_15
+    ''')
+
+    # Ensure filename is hidden with :hide_filename:
+    assert results_header not in content

@@ -75,3 +75,14 @@ This is a test
    print('execute_code_input:' + var)
    var = input("Enter second value")
    print('execute_code_input:' + var)
+
+
+.. execute_code::
+   :hide_results_caption:
+
+   print('execute_code_hide_results_caption:' + 'sample_14')
+
+.. execute_code::
+   :hide_code_caption:
+
+   print('execute_code_hide_code_caption:' + 'sample_15')

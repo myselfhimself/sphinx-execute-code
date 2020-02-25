@@ -29,8 +29,12 @@ filename
     and ignore content.
 code_caption
     If specified, defines the code caption header
+hide_code_caption
+    If specified, will hide the code caption header
 results_caption
     If specified, defines the results caption header
+hide_results_caption
+    If specified, will hide the results caption header
 hide_import
     If specified, hides the import command in code
 input

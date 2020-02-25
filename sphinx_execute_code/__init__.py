@@ -14,6 +14,9 @@ Available options:
         'hide_import': directives.flag,
         'code_caption': directives.unicode_code,
         'results_caption': directives.unicode_code,
+        'hide_code_caption': directives.flag,
+        'hide_results_caption': directives.flag,
+        'input': string_list,
 
 Usage:
 
@@ -44,7 +47,7 @@ except ImportError:
 
 __author__ = 'jp.senior@gmail.com'
 __docformat__ = 'restructuredtext'
-__version__ = '0.3a3'
+__version__ = '0.3a4'
 
 
 def string_list(argument):
@@ -72,6 +75,8 @@ class ExecuteCode(Directive):
         'hide_import': directives.flag,
         'code_caption': directives.unicode_code,
         'results_caption': directives.unicode_code,
+        'hide_code_caption': directives.flag,
+        'hide_results_caption': directives.flag,
         'input': string_list,
     }
 
@@ -156,7 +161,7 @@ class ExecuteCode(Directive):
 
             input_code['language'] = language
             input_code['linenos'] = 'linenos' in self.options
-            if not 'hide_headers' in self.options:
+            if not 'hide_headers' in self.options and not 'hide_code_caption' in self.options:
                 suffix = ''
                 if not 'hide_filename' in self.options:
                     suffix = '' if filename is None else str(filename)
@@ -167,7 +172,7 @@ class ExecuteCode(Directive):
             output.append(input_code)
 
         # Show the code results
-        if not 'hide_headers' in self.options:
+        if not 'hide_headers' in self.options and not 'hide_results_caption' in self.options:
             results_caption = self.options.get('results_caption') or 'Results'
             output.append(nodes.caption(text=results_caption))
 
