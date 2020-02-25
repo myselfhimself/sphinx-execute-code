@@ -28,9 +28,11 @@ Usage:
 import os
 import re
 import sys
+import ast
 
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
+from .mocked_input import MockedInput
 
 try:
     from StringIO import StringIO
@@ -42,8 +44,16 @@ except ImportError:
 
 __author__ = 'jp.senior@gmail.com'
 __docformat__ = 'restructuredtext'
-__version__ = '0.3a2'
+__version__ = '0.3a3'
 
+
+def string_list(argument):
+    """
+    Converts a list of values into a Python list of strings.
+    (Directive option conversion function.)
+
+    """
+    return ast.literal_eval(argument)
 
 class ExecuteCode(Directive):
     """ Sphinx class for execute_code directive
@@ -62,10 +72,11 @@ class ExecuteCode(Directive):
         'hide_import': directives.flag,
         'code_caption': directives.unicode_code,
         'results_caption': directives.unicode_code,
+        'input': string_list,
     }
 
     @classmethod
-    def execute_code(cls, code):
+    def execute_code(cls, code, inputs=None):
         """ Executes supplied code as pure python and returns a list of stdout, stderr
 
         Args:
@@ -87,6 +98,10 @@ class ExecuteCode(Directive):
 
         sys.stdout = output
         sys.stderr = err
+
+        if inputs:
+            import builtins
+            builtins.input = MockedInput(inputs)
 
         try:
             # pylint: disable=exec-used
@@ -155,7 +170,9 @@ class ExecuteCode(Directive):
         if not 'hide_headers' in self.options:
             results_caption = self.options.get('results_caption') or 'Results'
             output.append(nodes.caption(text=results_caption))
-        code_results = self.execute_code(code)
+
+        inputs = self.options.get('input') or None
+        code_results = self.execute_code(code, inputs)
         code_results = nodes.literal_block(code_results, code_results)
 
         code_results['linenos'] = 'linenos' in self.options

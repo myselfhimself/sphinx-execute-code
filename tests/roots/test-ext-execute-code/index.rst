@@ -66,3 +66,12 @@ This is a test
    :code_caption: Example code
 
    print('execute_code_code_caption:' + 'sample_12')
+
+.. execute_code::
+   :input: ["sample_13-1","sample_13-2"]
+
+   print('execute_code_input:' + 'sample_13')
+   var = input("Enter first value")
+   print('execute_code_input:' + var)
+   var = input("Enter second value")
+   print('execute_code_input:' + var)

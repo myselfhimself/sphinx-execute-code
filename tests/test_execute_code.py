@@ -141,3 +141,17 @@ def test_sphinx_execute_code(app, status, warning):
     ''')
 
     assert results_header in content
+
+    # Ensure :input: works
+    assert 'execute_code_input:sample_13' in content
+    results_header = dedent('''\
+    Results
+    
+       execute_code_input:sample_13
+       Enter first value sample_13-1
+       execute_code_input:sample_13-1
+       Enter second value sample_13-2
+       execute_code_input:sample_13-2
+    ''')
+
+    assert results_header in content

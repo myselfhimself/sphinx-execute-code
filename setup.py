@@ -11,7 +11,7 @@ def readme():
 
 setup(
     name='sphinx_execute_code',
-    version='0.3a2',
+    version='0.3a3',
     platforms=['any'],
     packages=['sphinx_execute_code'],
     url='https://github.com/jpsenior/sphinx-execute-code',
