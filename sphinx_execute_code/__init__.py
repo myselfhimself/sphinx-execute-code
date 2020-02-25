@@ -42,7 +42,7 @@ except ImportError:
 
 __author__ = 'jp.senior@gmail.com'
 __docformat__ = 'restructuredtext'
-__version__ = '0.3a1'
+__version__ = '0.3a2'
 
 
 class ExecuteCode(Directive):
