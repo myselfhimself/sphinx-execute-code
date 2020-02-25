@@ -11,6 +11,9 @@ Available options:
         'hide_headers': directives.flag,
         'filename': directives.path,
         'hide_filename': directives.flag,
+        'hide_import': directives.flag,
+        'code_caption': directives.unicode_code,
+        'results_caption': directives.unicode_code,
 
 Usage:
 
@@ -24,6 +27,7 @@ Usage:
 """
 import sys
 import os
+import re
 from docutils.parsers.rst import Directive, directives
 from docutils import nodes
 
@@ -37,7 +41,7 @@ except ImportError:
 
 __author__ = 'jp.senior@gmail.com'
 __docformat__ = 'restructuredtext'
-__version__ = '0.2a2'
+__version__ = '0.3a1'
 
 
 class ExecuteCode(Directive):
@@ -54,6 +58,9 @@ class ExecuteCode(Directive):
         'hide_headers': directives.flag,
         'filename': directives.path,
         'hide_filename': directives.flag,
+        'hide_import': directives.flag,
+        'code_caption': directives.unicode_code,
+        'results_caption': directives.unicode_code,
     }
 
     @classmethod
@@ -124,6 +131,9 @@ class ExecuteCode(Directive):
 
         # Show the example code
         if not 'hide_code' in self.options:
+            if 'hide_import' in self.options:
+                m = re.compile(r"import\s+[\.\w]+\s*\n+", re.MULTILINE)
+                code = m.sub("", code)
             input_code = nodes.literal_block(code, code)
 
             input_code['language'] = language
@@ -132,13 +142,17 @@ class ExecuteCode(Directive):
                 suffix = ''
                 if not 'hide_filename' in self.options:
                     suffix = '' if filename is None else str(filename)
+                code_caption = self.options.get('code_caption') or 'Code'
+
                 output.append(nodes.caption(
-                    text='Code %s' % suffix))
+                    text='%s %s' % (code_caption, suffix)))
             output.append(input_code)
+
 
         # Show the code results
         if not 'hide_headers' in self.options:
-            output.append(nodes.caption(text='Results'))
+            results_caption = self.options.get('results_caption') or 'Results'
+            output.append(nodes.caption(text=results_caption))
         code_results = self.execute_code(code)
         code_results = nodes.literal_block(code_results, code_results)
 

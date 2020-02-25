@@ -58,7 +58,11 @@ This is a test
    print('execute_code_hide_import:' + 'sample_10')
 
 .. execute_code::
-   :hide_headers:
-   :results_caption: Example code
+   :results_caption: Results for example code
 
    print('execute_code_results_caption:' + 'sample_11')
+
+.. execute_code::
+   :code_caption: Example code
+
+   print('execute_code_code_caption:' + 'sample_12')

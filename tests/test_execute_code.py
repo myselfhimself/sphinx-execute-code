@@ -11,7 +11,9 @@
 """
 import json
 from textwrap import dedent
+
 import pytest
+
 from sphinx_execute_code import ExecuteCode
 from tests.example_class import Hello
 
@@ -115,3 +117,27 @@ def test_sphinx_execute_code(app, status, warning):
 
     assert 'execute_code_hide_filename:sample_9' in content
     assert 'hidden_filename' not in content
+
+    # Ensure :hideimport: works
+    assert 'execute_code_hide_import:sample_10' in content
+    assert 'import os' not in content
+
+    # Ensure :results_caption: works
+    assert 'execute_code_results_caption:sample_11' in content
+    results_header = dedent('''\
+    Results for example code
+    
+       execute_code_results_caption:sample_11
+    ''')
+
+    assert results_header in content
+
+    # Ensure :code_caption: works
+    assert 'execute_code_results_caption:sample_11' in content
+    results_header = dedent('''\
+    Example code
+    
+       print('execute_code_code_caption:' + 'sample_12')
+    ''')
+
+    assert results_header in content

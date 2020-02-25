@@ -13,7 +13,7 @@ literal-block and code-block statements.
 
 Options
 -------
-Options right now (as of version 0.2) are:
+Options right now (as of version 0.3) are:
 
 linenos
     If specified, will show line numbers
@@ -27,6 +27,12 @@ hide_headers
 filename
     If specified, will load code from a file (relative to sphinx doc root)
     and ignore content.
+code_caption
+    If specified, defines the code caption header
+results_caption
+    If specified, defines the results caption header
+hide_import
+    If specified, hides the import command in code
 
 execute_code
 ------------
