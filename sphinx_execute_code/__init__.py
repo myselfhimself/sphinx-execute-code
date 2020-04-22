@@ -110,7 +110,7 @@ class ExecuteCode(Directive):
 
         try:
             # pylint: disable=exec-used
-            exec(code)
+            exec(code, globals())
         # If the code is invalid, just skip the block - any actual code errors
         # will be raised properly
         except TypeError:
