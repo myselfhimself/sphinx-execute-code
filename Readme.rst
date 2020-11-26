@@ -20,7 +20,9 @@ linenos
 output_language
     Customizes pygments lexxer for specified language (Eg, Javascript, bash)
 hide_code
-    If specified, will hide the code block and only show results
+    If specified, will hide the code block and only show results only hide_results is toggled
+hide_results
+    If specified, will hide the results
 hide_headers
     If specified, hides the 'Code' and 'Results' caption headers around
     the literal blocks
