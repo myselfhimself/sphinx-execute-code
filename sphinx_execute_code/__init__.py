@@ -8,6 +8,7 @@ Available options:
         'linenos': directives.flag,
         'output_language': directives.unchanged,
         'hide_code': directives.flag,
+        'hide_results': directives.flag,
         'hide_headers': directives.flag,
         'filename': directives.path,
         'hide_filename': directives.flag,
@@ -69,6 +70,7 @@ class ExecuteCode(Directive):
         'linenos': directives.flag,
         'output_language': directives.unchanged,  # Runs specified pygments lexer on output data
         'hide_code': directives.flag,
+        'hide_results': directives.flag,
         'hide_headers': directives.flag,
         'filename': directives.path,
         'hide_filename': directives.flag,
@@ -177,12 +179,15 @@ class ExecuteCode(Directive):
             output.append(nodes.caption(text=results_caption))
 
         inputs = self.options.get('input') or None
+        # In all cases evaluate code...
         code_results = self.execute_code(code, inputs)
-        code_results = nodes.literal_block(code_results, code_results)
+        #... but optionnally show the results
+        if not 'hide_results' in self.options:
+                code_results = nodes.literal_block(code_results, code_results)
 
-        code_results['linenos'] = 'linenos' in self.options
-        code_results['language'] = output_language
-        output.append(code_results)
+                code_results['linenos'] = 'linenos' in self.options
+                code_results['language'] = output_language
+                output.append(code_results)
         return output
 
 
